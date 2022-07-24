@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-
 void choix_joueur(int N)
 {
 	int valeur_a_trouver, choix_joueur, nombre_de_devinettes = 0;
