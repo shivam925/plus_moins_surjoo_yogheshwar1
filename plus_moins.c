@@ -18,50 +18,63 @@ int plus_moins(int choix_joueur, int valeur_a_trouver)
 		return 2;
 	}
 }
+
 int main()
 {
-	int valeur_a_trouver = rand() % 100 + 1;
+	int valeur_a_trouver;
 	int choix_joueur;
 	int resultat;
-	int mode;
-	int i = 0;
-	printf("À quel point aimeriez-vous que le jeu soit difficile?:\n");
-	printf("Insérer 1 pour facile\n");
-	printf("Insérer 2 pour moyen\n");
-	printf("Insérer 3 pour difficile\n");
-	scanf("%d",&mode);
-	if(mode == 1)
+
+	int score_joueur1 = 0;
+	int score_joueur2 = 0;
+	int coup;
+	int i;
+
+	printf("Veuillez entrer le nombre de tours qui seront joués. ");
+	scanf("%d",&i);
+	do
 	{
-		printf("Pour trouver le nombre caché, insérez un nombre entier: ");
-		scanf("%d",&choix_joueur);
-		resultat = plus_moins(choix_joueur,valeur_a_trouver);
-	}while(resultat<=1);
+		valeur_a_trouver = rand() % 100 + 1;
+		printf("\nJoueur 1, Veuillez entrer un nombre maximum de coups pour le joueur 2. (doit etre plus grand que a 10): ");
+		scanf("%d",&coup);
 		do
 		{
 			printf("Pour trouver le nombre caché, insérez un nombre entier: ");
+			printf("\nJoueur 2, inserez un nombre entier pour essayer de trouver le nombre cacher: ");
 			scanf("%d",&choix_joueur);
 			resultat = plus_moins(choix_joueur,valeur_a_trouver);
-		i = i + 1;
-		}while(i<=1);
-	
-	if(mode == 2)
-	{
-		do
-                {
-                        printf("Pour trouver le nombre caché, insérez un nombre entier: ");
-                        scanf("%d",&choix_joueur);
-                        resultat = plus_moins(choix_joueur,valeur_a_trouver);
-			i = i + 1;
-                }while(i<25);
-	}
-	if(mode == 3)
-	{
-		do
-                {
-                        printf("Pour trouver le nombre caché, insérez un nombre entier: ");
-                        scanf("%d",&choix_joueur);
-                        resultat = plus_moins(choix_joueur,valeur_a_trouver);
-			i = i + 1;
-                }while(i<10);
-	}
+
+			if(resultat<2)
+				coup = coup - 1;
+		}while(resultat<=1 && coup>0);
+		score_joueur2 = score_joueur2 + coup;
+
+
+
+		valeur_a_trouver = rand() % 100 + 1;
+		printf("\nJoueur 2, veillez inserer un nombre de coup maximum a jouer par le Joueur 1(doit etre superieur a 10): ");
+        	scanf("%d",&coup);
+        	do
+        	{
+        	        printf("\nJoueur 1, inserez un nombre entier pour essayer de trouver le nombre cacher: ");
+        	        scanf("%d",&choix_joueur);
+        	        resultat = plus_moins(choix_joueur,valeur_a_trouver);
+        	        if(resultat<2)
+        	                coup = coup - 1;
+        	}while(resultat<=1 && coup>0);
+        	score_joueur1 = score_joueur1 + coup;
+
+		i = i - 1;
+	}while(i>0);
+
+
+
+	printf("\nLe resultat du Joueur 1 est: %d",score_joueur1);
+	printf("\nLe resultat du Joueur 2 est: %d",score_joueur2);
+	if(score_joueur1>score_joueur2)
+		printf("\nLe Joueur 1 a remporte le match!\n");
+	if(score_joueur1<score_joueur2)
+		printf("\nLe Joueur 2 a remporte le match!\n");
+	if(score_joueur1==score_joueur2)
+                printf("\nMatch Nul\n");
 }
